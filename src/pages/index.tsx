@@ -28,7 +28,7 @@ export default function Shortener() {
   };
 
   return (
-    <Card className="w-full sm:max-w-lg mx-auto mt-4 sm:mt-10 px-2 sm:px-4 py-4 sm:py-6 rounded-xl shadow-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+    <Card className="w-full sm:max-w-lg mx-auto mt-4 sm:mt-10 px-2 sm:px-4 py-4 sm:py-6 rounded-xl shadow-lg  text-white">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-xl sm:font-semibold sm:text-3xl">
           URL Shortener
