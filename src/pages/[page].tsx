@@ -17,7 +17,7 @@ const Page = () => {
           data: { url: fullUrl },
         } = await axios(`/api/full?url=${page}`);
 
-        router.push(fullUrl);
+        router.push(`https://${decodeURIComponent(fullUrl)}`);
       } catch (e) {
         router.replace("/404");
       }

@@ -9,22 +9,30 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FormEvent, useState } from "react";
-import { Url } from "@/types/Url";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Shortener() {
   const [originUrl, setOriginUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
 
+  const router = useRouter();
+
   const goShorten = async (e: FormEvent) => {
     e.preventDefault();
+    setShortUrl("");
 
-    const result: Url = await (
-      await fetch(`/api/short?url=${originUrl}`)
-    ).json();
+    try {
+      const {
+        data: { url },
+      } = await axios(`/api/short?url=${originUrl}`);
 
-    console.log(result);
+      console.log(window.location.origin);
 
-    setShortUrl(result.url || "");
+      setShortUrl(`${window.location.origin}/${url}`);
+    } catch (e) {
+      alert("Server has an error!");
+    }
   };
 
   return (
@@ -68,6 +76,10 @@ export default function Shortener() {
             className="ml-3 px-4 py-2 rounded-md bg-white text-black hover:bg-gray-200"
             size="sm"
             variant="outline"
+            onClick={async () => {
+              await navigator.clipboard.writeText(shortUrl);
+              alert("Copied!");
+            }}
           >
             <CopyIcon className="w-4 h-4 mr-1" />
             Copy
